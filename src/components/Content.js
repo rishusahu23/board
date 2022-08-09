@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Menubar from "./Menubar";
 import Middlebar from "./Middlebar";
 import Rightbar from "./Rightbar";
@@ -13,6 +13,8 @@ const Content = () => {
   const [rotate, setRotate] = useState(0);
   const [size, setSize] = useState({ width: 95, height: 100 });
 
+  // useEffect(() => {}, [leftPos, topPos, rotate, size]);
+
   const handleXY = (x, y) => {
     setLeftPos(x);
     setTopPos(y);
@@ -24,24 +26,24 @@ const Content = () => {
   };
 
   const handleRight = () => {
-    setLeftPos(leftPos + 10);
+    setLeftPos((prev) => prev + 10);
     console.log(leftPos);
   };
   const handleLeft = () => {
-    if (leftPos >= 10) setLeftPos(leftPos - 10);
+    if (leftPos >= 10) setLeftPos((prev) => prev - 10);
     console.log(leftPos);
   };
   const handleBottom = () => {
-    setTopPos(topPos + 10);
+    setTopPos((prev) => prev + 10);
     console.log(leftPos);
   };
   const handleTop = () => {
-    if (topPos >= 10) setTopPos(topPos - 10);
+    if (topPos >= 10) setTopPos((prev) => prev - 10);
     console.log(topPos);
   };
 
   const handleRotate = () => {
-    if (leftPos >= 10 || topPos >= 10) setRotate(rotate + 10);
+    if (leftPos >= 10 || topPos >= 10) setRotate((prev) => prev + 10);
     console.log(leftPos, topPos);
   };
   const handleShow = () => {

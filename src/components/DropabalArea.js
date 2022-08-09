@@ -39,9 +39,13 @@ const DropabalArea = ({
     functions.map((v, ind) => {
       v &&
         setTimeout(() => {
-          console.log(v, "hd", x, y);
+          console.log(v, "hd", leftPos, topPos);
 
-          value[ind] === "Move x and y" ? handleXY(x, y) : v();
+          value[ind] === "Move x and y"
+            ? handleXY(x, y)
+            : value[ind] === "Rotate to Particular Angle"
+            ? handleAngle(a)
+            : v();
         }, 1000 * i++);
     });
   };
@@ -59,10 +63,10 @@ const DropabalArea = ({
     handleXY(x, y);
   };
 
-  // const onSubmitA = (e) => {
-  //   e.preventDefault();
-  //   handleAngle(a);
-  // };
+  const onSubmitA = (e) => {
+    e.preventDefault();
+    handleAngle(a);
+  };
 
   const formInput = {
     width: "40px",
@@ -108,10 +112,41 @@ const DropabalArea = ({
     );
   };
 
+  const rotateA = () => {
+    return (
+      <form
+        onSubmit={onSubmitA}
+        style={{
+          padding: "10px 10px 10px 10px ",
+          borderRadius: "5px",
+          backgroundColor: "#1976d2",
+          height: "30px !important",
+          textAlign: "center",
+          height: "20px Important",
+          margin: "10px 100px 10px 10px ",
+          color: "#f3efef",
+        }}
+        //onClick={() => handleRight()}
+        className="text"
+      >
+        <label>Set Angle:</label>{" "}
+        <input
+          style={formInput}
+          value={a}
+          onChange={(e) => setA(1 * e.target.value)}
+        />
+        <br />
+        <Button variant="contained" color="success" type="submit">
+          Set
+        </Button>
+      </form>
+    );
+  };
+
   return (
     <div style={{ backgroundColor: "#f0f2f7", height: "100%", zIndex: "99" }}>
       <FlagIcon
-        style={{ color: "green", fontSize: "40px" }}
+        style={{ color: "green", fontSize: "40px", cursor: "pointer" }}
         onClick={handleFlagClick}
       />
       <div
@@ -125,14 +160,17 @@ const DropabalArea = ({
           height: "100%",
         }}
       >
-        {value.map((item) => {
+        {value.map((item, ind) => {
           return item === "Move x and y" ? (
             <>{moveXY()}</>
+          ) : item === "Rotate to Particular Angle" ? (
+            <>{rotateA()}</>
           ) : (
             <Button
               variant="contained"
               color="primary"
               style={{ margin: "10px 100px 10px 10px", borderRadius: "5px" }}
+              onClick={functions[ind]}
             >
               {item}
             </Button>
