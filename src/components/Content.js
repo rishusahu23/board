@@ -8,9 +8,20 @@ const Content = () => {
   const [draggedValue, setdraggedValue] = useState({ text: "", function: "" });
   const [leftPos, setLeftPos] = useState(10);
   const [topPos, setTopPos] = useState(10);
+
   const [show, setShow] = useState(false);
   const [rotate, setRotate] = useState(0);
-  const [size,setSize]=useState({width:95,height:100})
+  const [size, setSize] = useState({ width: 95, height: 100 });
+
+  const handleXY = (x, y) => {
+    setLeftPos(x);
+    setTopPos(y);
+    console.log("hand", x, y);
+  };
+
+  const handleAngle = (a) => {
+    setRotate(a);
+  };
 
   const handleRight = () => {
     setLeftPos(leftPos + 10);
@@ -42,20 +53,19 @@ const Content = () => {
     console.log(leftPos);
   };
 
-  const handleRandom=()=>{
-    setLeftPos( Math.floor(Math.random() * (310 - 20 + 1) + 20));
+  const handleRandom = () => {
+    setLeftPos(Math.floor(Math.random() * (310 - 20 + 1) + 20));
     setTopPos(Math.floor(Math.random() * (310 - 20 + 1) + 20));
-  }
+  };
 
-  const handleSize=()=>{
-    console.log("size",size)
-    if(size.width<=310 && size.height<=310)
-    setSize({
-      width:size.width+20,
-      height:size.height+20
-    })
-
-  }
+  const handleSize = () => {
+    console.log("size", size);
+    if (size.width <= 310 && size.height <= 310)
+      setSize({
+        width: size.width + 20,
+        height: size.height + 20,
+      });
+  };
 
   return (
     <div style={{ display: "flex", height: "100%" }}>
@@ -83,6 +93,8 @@ const Content = () => {
           setSize={setSize}
           size={size}
           handleSize={handleSize}
+          handleXY={handleXY}
+          handleAngle={handleAngle}
         />
       </div>
       <div style={{ border: "1px solid #97989b", flex: 4 }}>
@@ -97,6 +109,11 @@ const Content = () => {
           handleShow={handleShow}
           handleRandom={handleRandom}
           handleSize={handleSize}
+          handleXY={handleXY}
+          handleAngle={handleAngle}
+          topPos={topPos}
+          leftPos={leftPos}
+          rotate={rotate}
         />{" "}
       </div>
       <div style={{ border: "1px solid #97989b", flex: 5 }}>
